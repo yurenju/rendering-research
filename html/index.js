@@ -20,7 +20,7 @@ function updateBee() {
   const element = document.getElementById('bee-count');
   const count = parseInt(element.value, 10);
   const bees = document.getElementById('bees');
-  bees.innerHTML = Array.apply(null, { length: count }).map((val, i) => `<img src="./bee.svg" class="bee" id="bee-${i}" />`).join('');
+  bees.innerHTML = Array.apply(null, { length: count }).map((val, i) => `<img src="../assets/bee.svg" class="bee" id="bee-${i}" />`).join('');
 }
 
 setInterval(() => {
