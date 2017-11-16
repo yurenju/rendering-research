@@ -37,6 +37,8 @@ function setup() {
     backgroundColor: 0xFFFFFF
   });
   stage = new PIXI.Container(0xFFFFFF)
+  // stage.filterArea = new PIXI.Rectangle(250, 250, 500, 500);
+  // stage.filters = [new PIXI.filters.BlurFilter()];
   document.body.appendChild(renderer.view);
 
   isWebGL = renderer instanceof PIXI.WebGLRenderer
@@ -55,13 +57,29 @@ function setup() {
   renderer.view.style.position = 'absolute'
   beeTexture = new PIXI.Texture.fromImage(beeSvg, undefined, undefined, 1.0)
   container = new PIXI.particles.ParticleContainer(maxBees, [false, true, false, false, false])
+  container.filterArea = new PIXI.Rectangle(250, 250, 500, 500);
+  container.filters = [new PIXI.filters.BlurFilter()];
+
   updateBackground(() => {
     stage.addChild(container);
     updateBee();
+    setupRect();
   });
 
   // renderer.render(stage);
   // animationFrameId = requestAnimationFrame(update);
+}
+
+function setupRect() {
+  var graphics = new PIXI.Graphics();
+
+  // graphics.blendMode = PIXI.BLEND_MODES.OVERLAY;
+  graphics.beginFill(0xFFFFFF, 0.5);
+  graphics.drawRect(250, 250, 500, 500);
+  var filter = new PIXI.filters.BlurFilter();
+  graphics.filters = [filter]
+
+  stage.addChild(graphics);
 }
 
 function updateBackground(cb) {
